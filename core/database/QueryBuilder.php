@@ -30,8 +30,29 @@ class QueryBuilder
 
         return $this->db->query($sql)->fetch_all(MYSQLI_ASSOC);
     }
-    public function update($table, array $data, array $where)
-    {
+    public function update($table, array $data, array $where){
 
+        //$id = $where['id'];
+        $select = $data['sel'];
+        $keys = array_keys($data['complete']);
+
+        if ($select=="u") {
+            $sql = sprintf("UPDATE %s SET %s WHERE %s",
+                $table,
+                "id = \"" . $where['id'] . "\"",
+                "keyss IN (" . implode(",", $keys).")"
+            );
+        }
+
+        else {
+            $sql = sprintf("DELETE FROM %s WHERE %s",
+                $table,
+                "keyss IN (" . implode(",", $keys).")"
+            );
+
+
+        }
+
+        return $this->db->query($sql);
     }
 }
