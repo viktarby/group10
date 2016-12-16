@@ -11,21 +11,32 @@ class TodoController
     }
 
     public function add()
+
     {
-        $title = $_POST['task'];
+        if ($_POST['task']) {
+            $title = $_POST['task'];
 
-        App::get('query')->insert('todo', [
-            'title' => $title,
-        ]);
+            App::get('query')->insert('todo', [
+                'title' => $title,
+            ]);
 
+        }
         Request::goBack();
     }
 
     public function update()
     {
-        $id = 1;
-        App::get('query')->update('todo', $_POST, [
-            'id' => $id
-        ]);
+        if ($_POST['select']&&$_POST['complete']) {
+            $id = "checked";
+            App::get('query')->update('todo', $_POST, [
+                'id' => $id
+
+                // $_POST['select'];  удалить или сохранить
+                // $_POST['complete']; массив ID
+
+            ]);
+        }
+
+        Request::goBack();
     }
 }
