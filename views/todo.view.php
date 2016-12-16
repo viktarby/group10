@@ -16,18 +16,20 @@
     </form>
     <hr>
     <form action="/task/update" method="POST">
-        <select name="" id="">
+        <select name="select" id="">
             <option value="d">Удалить</option>
             <option value="u">Пометить как сделано!</option>
         </select>
         <input type="submit">
     <ul>
     <?php foreach($taskList as $task): ?>
-        <?php if($task['complete']): ?>
-            <li><s><?= $task['title'] ?></s></li>
+        <li><input type="checkbox" name="complete[<?= $task['keyss'] ?>]" value="" <?= $task['id'] ?> >
+        <?php if($task['id']): ?>
+
+                <s><?= $task['title'] ?></s></li>
+
         <?php else: ?>
-            <li>
-                <input type="checkbox" name="complete[]" value="">
+
                 <?= $task['title'] ?>
             </li>
         <?php endif ?>
